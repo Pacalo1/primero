@@ -18,7 +18,7 @@ from tkinter import *
 from tokenize import Double
 
 from binance.client import Client
-#from binance import ThreadedWebsocketManager
+from binance import ThreadedWebsocketManager
 import time
 import sqlite3
 import threading
@@ -87,14 +87,15 @@ dia_de_antes=0
 
 key1='SgLRNVSNnn8J1KMIjJeG0i4LBEMzcwcJfFpqJHgQHSQXRFjWMER1lySJ5LJHNOb2'
 key2='X17ftbqNdUgtAusjm25JFkkN6nasNM7XddQKfFgULmNjyFtP83XowxsrRKWLETqg'
-Key3="h3XtS26t1cNksDxyfre1KSyfcyX7JAQOFS991r3CPwRlK36mVRlgSaonQhlx3OGH"
 secret1='FtIR9C1xdTosRPDxtN7WCHZaMP7c9g114RHjpVHwmNfIsVfOawiXHoCoseOzv8lD'
 secret2='aS0tYCuhfCntbEWCff1QeH2p0sz4RP7A7na0Td3nrbbiGshQCEDAw7bp9um4sBwP'
-secret3="rOkdLwQ8E0UKR1RkJGDflwGBc8tMJwLpvTiVwdd8f3H1JWBNKvJBrxZ1l4ZmJqPX"
-client= Client(api_key=Key3,api_secret=secret3)
+API_Key1="h3XtS26t1cNksDxyfre1KSyfcyX7JAQOFS991r3CPwRlK36mVRlgSaonQhlx3OGH"
+Secret_Key1="rOkdLwQ8E0UKR1RkJGDflwGBc8tMJwLpvTiVwdd8f3H1JWBNKvJBrxZ1l4ZmJqPX"
+
+client= Client(api_key=API_Key1,api_secret=Secret_Key1)
 
 
-
+ 
 
 #***************************************************************************************************************
 #*********************************************Base de datos************************************************************
@@ -146,7 +147,7 @@ def cada_tick():
    global balance_total
    balance_total=0  # inicialicamos el balance total para que empiece a sumarlo desde 0
    balance_porcentage=0
-   print("precio"+ socket_precio)
+
    for x in range(100):         
         #-------------miramos haber si tiene que entrar en algun precio de algun naranjo
         if  naranjo_dentro[x] == False and float(socket_precio) > naranjos_precio_entrada[x] and float(socket_precio) < (naranjos_precio_entrada[x] + 15) : 
@@ -162,7 +163,7 @@ def cada_tick():
                
                cantidad_a_comprar=float(round(cantidad_a_comprar,5))
                naranjo_cantidad_comprar[x]=cantidad_a_comprar
-               print (cantidad_a_comprar)
+               #print (cantidad_a_comprar)
                order=client.order_market_buy(symbol='BTCUSDT',quantity=cantidad_a_comprar)
 
 
@@ -204,7 +205,7 @@ def cada_tick():
         balance_porcentage_s=str(balance_porcentage)[0:7]
 
         #---------------- metemos la flechita donde este el precio
-        
+         
         label_naranjo_en_precio[x].config(text=" ")
         if float(socket_precio) > naranjos_precio_entrada[x] and float(socket_precio) < naranjos_precio_entrada[x + 1] :
             label_naranjo_en_precio[x].config(text="<---")
@@ -282,38 +283,37 @@ def cada_tick():
    label_balance_porcentage.config(text=balance_porcentage_s)
    
    #----------lanzamos la funcion estadisticas para que las cambie cada minuto
-   #global minuto_anterior
-   #tiempo=datetime.now()
-   #hora=tiempo.time()
-   #minuto=hora.minute
-   #if minuto_anterior != minuto:
-    # estadisticas()
+   global minuto_anterior
+   tiempo=datetime.now()
+   hora=tiempo.time()
+   minuto=hora.minute
+   if minuto_anterior != minuto:
+     estadisticas()
      
    
-   #minuto_anterior=minuto
+   minuto_anterior=minuto
 
    #--------al final del dia metemos en la BD(diario) la informacion de como cerramos el dia
    # miramos si ha cambiado el dia para ver si arrancamos  
-   
-   #global dia_anterior
-   #fecha=tiempo.date()
-   #dia=str(fecha)[8:10]
+   global dia_anterior
+   fecha=tiempo.date()
+   dia=str(fecha)[8:10]
    #print(dia)
    #print(dia_anterior)
-   #if dia != dia_anterior:   # dia_anterior nos viene de la funcion diario_dia()
-   #    bd_conexion=sqlite3.connect('naranjos')
-   #    bd_cursor=bd_conexion.cursor()
-   #    bd_fecha=fecha
-   #    bd_deposito= cantidad_total   # nos viene de estadisticas
-    #   bd_precio_btc= socket_precio
-    #   bd_balance_total=pasta_total
-    #   print(pasta_total)
-    #   bd_conexion.execute( "INSERT INTO diario (fecha,deposito,precio_btc,balance_total) VALUES(?,?,?,?)",(bd_fecha,bd_deposito,bd_precio_btc,pasta_total))
-    #   bd_conexion.commit()
+   if dia != dia_anterior:   # dia_anterior nos viene de la funcion diario_dia()
+       bd_conexion=sqlite3.connect('naranjos')
+       bd_cursor=bd_conexion.cursor()
+       bd_fecha=fecha
+       bd_deposito= cantidad_total   # nos viene de estadisticas
+       bd_precio_btc= socket_precio
+       bd_balance_total=pasta_total
+       #print(pasta_total)
+       bd_conexion.execute( "INSERT INTO diario (fecha,deposito,precio_btc,balance_total) VALUES(?,?,?,?)",(bd_fecha,bd_deposito,bd_precio_btc,pasta_total))
+       bd_conexion.commit()
 
-     #  print('fecha:',fecha)
-     #  dia_anterior= dia
-      # bd_conexion.close()
+       #print('fecha:',fecha)
+       dia_anterior= dia
+       bd_conexion.close()
 
 
 #***************************************************************************************************************
@@ -351,7 +351,7 @@ def evento_f():
        socket_precio=datos_lista['price']
     
        precio_texto=socket_precio[0:7]
-       #label_precio_socket.config(text=precio_texto)
+       label_precio_socket.config(text=precio_texto)
        #print('entro')
        #print('p: ',socket_precio)
        #print(datos_lista)
@@ -360,7 +360,7 @@ def evento_f():
 
 
 
-def socket():
+#def socket():
     #symbol='BTCUSDT'
     #twm=ThreadedWebsocketManager(api_key='SgLRNVSNnn8J1KMIjJeG0i4LBEMzcwcJfFpqJHgQHSQXRFjWMER1lySJ5LJHNOb2',api_secret='FtIR9C1xdTosRPDxtN7WCHZaMP7c9g114RHjpVHwmNfIsVfOawiXHoCoseOzv8lD')
     #twm.start()
@@ -376,12 +376,10 @@ def socket():
     #   print(datos[0])
 
     #twm.start_symbol_ticker_socket(callback=mensage_socket,symbol=symbol)
+   
+              # rodamos el threding y lo enviamos a evento_f
+    #print("32") 
     
-    
-    evento_t=threading.Timer(3,evento_f) # el threading.timer crea un evento en segundo plano que no detiene la ejecucion del programa cuando lo metamos en un bucle infinito
-    evento_t.start()              # rodamos el threding y lo enviamos a evento_f
-
-
 
 #***************************************************************************************************************
 #*********************************************INTERFAZ************************************************************
@@ -391,6 +389,10 @@ def socket():
 
 def interfaz():
     global balance_total
+
+    print("llego")
+
+
 
     raiz=Tk()  # creamos la raiz donde iran los frames
     raiz.title('Escudrinyator v0.1')
@@ -432,6 +434,8 @@ def interfaz():
     global label_precio_socket
     label_precio_socket=Label(frame1,text=socket_precio,font=('Helvatical bold',12))
     label_precio_socket.grid(row=1,column=0,padx=10,pady=10)
+
+    #raiz.after(1000,label_precio_socket)
 
     label_precio_socket.place(x=60,y=10)
        
@@ -927,7 +931,8 @@ def interfaz():
 
 
 
-    
+    evento_t=threading.Timer(3,evento_f) # el threading.timer crea un evento en segundo plano que no detiene la ejecucion del programa cuando lo metamos en un bucle infinito
+    evento_t.start()   
     estadisticas() # para que cambie las labels de estadisticas
     raiz.mainloop()
 
@@ -1168,9 +1173,9 @@ def diario_dia():  # sacamos el dia de la ultima vez que metimos las estadistica
 #***************************************************************************************************************
 def main():
     
-    #diario_dia()   # lo primero que hacemos es sacar el ultimo dia que cambiamos la bd(diario) 
-    
-    socket()
+    diario_dia()   # lo primero que hacemos es sacar el ultimo dia que cambiamos la bd(diario) 
+     
+    #socket()
 
     
     if bd_llena==False:       # si la Bd no esta llena creamos la informacion de los naranjos por primera vez
