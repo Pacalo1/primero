@@ -1187,13 +1187,13 @@ def ventanita():
    label_ventana2_mensages=Label(ventana_2,text='Probar mensages ',font=('Helvatical ',9))
    label_ventana2_mensages.place(x=10,y=10)
    
-   tele=Telegram()
+   tele=Telegram()  # mi clase pra enviar los mensages al telegram
 
    boton_imprimir=ttk.Button(ventana_2,text="imprimir",command=tele.Imprimir)
    boton_imprimir.place(x=60,y=10)
 
    
-   tele.Imprimir()
+   
    
 #***************************************************************************************************************
 #*********************************************MAIN************************************************************
