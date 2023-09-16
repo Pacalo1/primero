@@ -146,7 +146,7 @@ def cada_tick():
    global balance_total
    balance_total=0  # inicialicamos el balance total para que empiece a sumarlo desde 0
    balance_porcentage=0
-   print("precio"+ socket_precio)
+   
    for x in range(100):         
         #-------------miramos haber si tiene que entrar en algun precio de algun naranjo
         if  naranjo_dentro[x] == False and float(socket_precio) > naranjos_precio_entrada[x] and float(socket_precio) < (naranjos_precio_entrada[x] + 15) : 
@@ -332,7 +332,7 @@ def mensage_socket(msg):
     
     precio_texto=socket_precio[0:7]
        
-
+    
     label_precio_socket.config(text=precio_texto)
 
     cada_tick()

@@ -929,7 +929,7 @@ def interfaz():
     label_balance_minimo_dia_var=Label(frame4,text='mucha pasta',font=('Helvatical bold',8))
     label_balance_minimo_dia_var.place(x=75,y=240)
 
-    boton_mas=ttk.Button(frame4,text="Mas")
+    boton_mas=ttk.Button(frame4,text="Mas",command=ventanita)
     boton_mas.place(x=100,y=510)
 
 
@@ -1172,6 +1172,15 @@ def diario_dia():  # sacamos el dia de la ultima vez que metimos las estadistica
    fecha=bd_ultimo_registro[1]
    dia_anterior= fecha[8:10]
    
+#***************************************************************************************************************
+#*********************************************VENTANITA************************************************************
+#***************************************************************************************************************
+def ventanita():
+   ventana_2=Toplevel()
+   ventana_2.geometry("200x200")
+   ventana_2.title("Mas")
+   #label_ventana2_mensages=Label(text='Probar mensages: ',font=('Helvatical ',9))
+   #label_ventana2_mensages.pack(x=10,y=10)
 
 #***************************************************************************************************************
 #*********************************************MAIN************************************************************
