@@ -24,6 +24,7 @@ import time
 import sqlite3
 import threading
 from datetime import datetime
+from Clase_telegram import Telegram   # esta biblioteca es mia
 
 
 #***************************************************************************************************************
@@ -1172,16 +1173,28 @@ def diario_dia():  # sacamos el dia de la ultima vez que metimos las estadistica
    fecha=bd_ultimo_registro[1]
    dia_anterior= fecha[8:10]
    
+
+
 #***************************************************************************************************************
 #*********************************************VENTANITA************************************************************
 #***************************************************************************************************************
 def ventanita():
+   
+  
    ventana_2=Toplevel()
-   ventana_2.geometry("200x200")
+   ventana_2.geometry("300x300")
    ventana_2.title("Mas")
-   #label_ventana2_mensages=Label(text='Probar mensages: ',font=('Helvatical ',9))
-   #label_ventana2_mensages.pack(x=10,y=10)
+   label_ventana2_mensages=Label(ventana_2,text='Probar mensages ',font=('Helvatical ',9))
+   label_ventana2_mensages.place(x=10,y=10)
+   
+   tele=Telegram()
 
+   boton_imprimir=ttk.Button(ventana_2,text="imprimir",command=tele.Imprimir)
+   boton_imprimir.place(x=60,y=10)
+
+   
+   tele.Imprimir()
+   
 #***************************************************************************************************************
 #*********************************************MAIN************************************************************
 #***************************************************************************************************************
