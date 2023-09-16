@@ -13,8 +13,9 @@
 
 from ctypes.wintypes import HLOCAL
 from operator import truediv
-from telnetlib import XASCII
+#from telnetlib import XASCII
 from tkinter import *
+from tkinter import ttk
 from tokenize import Double
 
 from binance.client import Client
@@ -23,6 +24,7 @@ import time
 import sqlite3
 import threading
 from datetime import datetime
+
 
 #***************************************************************************************************************
 #*********************************************CONSTANTES E INPUTS DEL PROGRAMA************************************************************
@@ -37,7 +39,7 @@ bd_creada= True # si ya esta creada no la creamos de nuevo
 bd_llena =True  # si la base de datos ya esta llena no la llenamos al principio
                 # si es la primera vez que enchufamos esto habrá que decirle que es false para que la llene con los parametros de crea_naranjos
                 # si la creamos de nuevo la tenemos que borrar antes( y guardarlo en el dbbroser)
-Permitir_ordenes=True # Para ver si es la demo y no compramos o esta en produccion y le dejamos operar
+Permitir_ordenes=False # Para ver si es la demo y no compramos o esta en produccion y le dejamos operar
 
 
 #***************************************************************************************************************
@@ -927,12 +929,15 @@ def interfaz():
     label_balance_minimo_dia_var=Label(frame4,text='mucha pasta',font=('Helvatical bold',8))
     label_balance_minimo_dia_var.place(x=75,y=240)
 
+    boton_mas=ttk.Button(frame4,text="Mas")
+    boton_mas.place(x=100,y=510)
 
 
-
-
+    #*************************************THREADING*************************************************************************************
     evento_t=threading.Timer(3,evento_f) # el threading.timer crea un evento en segundo plano que no detiene la ejecucion del programa cuando lo metamos en un bucle infinito
     evento_t.start()   
+    #************************************************************************************************************************************
+    
     estadisticas() # para que cambie las labels de estadisticas
     raiz.mainloop()
 
