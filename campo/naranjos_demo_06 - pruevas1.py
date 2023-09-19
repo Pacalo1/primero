@@ -168,6 +168,10 @@ def cada_tick():
                naranjo_cantidad_comprar[x]=cantidad_a_comprar
                #print (cantidad_a_comprar)
                order=client.order_market_buy(symbol='BTCUSDT',quantity=cantidad_a_comprar)
+               #---------------ENVIAMOS MEN POR TELEGRAM----------------------------
+               tele=Telegram()
+               tele.Men_entro(socket_precio)
+
 
 
 
@@ -222,8 +226,9 @@ def cada_tick():
             cantidad_a_comprar=naranjo_cantidad_comprar[x]
             cantidad_a_comprar=float(round(cantidad_a_comprar,5))
             order=client.order_market_sell(symbol='BTCUSDT',quantity=cantidad_a_comprar)
-            
-            
+            #---------------ENVIAMOS MEN POR TELEGRAM----------------------------
+            tele=Telegram()
+            tele.Men_salio(socket_precio)
             
             naranjo_dentro[x]= False
             naranjo_numero_operaciones[x]=naranjo_numero_operaciones[x] + 1
@@ -1189,8 +1194,8 @@ def ventanita():
    
    tele=Telegram()  # mi clase pra enviar los mensages al telegram
 
-   boton_imprimir=ttk.Button(ventana_2,text="imprimir",command=tele.Imprimir)
-   boton_imprimir.place(x=60,y=10)
+   boton_imprimir=ttk.Button(ventana_2,text="Imprimir",command=tele.Men_Telegram)
+   boton_imprimir.place(x=120,y=10)
 
    
    

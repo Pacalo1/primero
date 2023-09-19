@@ -14,3 +14,18 @@ class Telegram:
     chat_id="5805918670"
     requests.post('https://api.telegram.org/bot'+ token +'/sendMessage',data={'chat_id': chat_id, 'text': "message"})
 
+  def Men_entro(self,precio):
+    
+    import requests
+    token="5956058224:AAGLqlpOiBwi0RcjfkoEXlV6Z-Ce0t4-tH8"
+    chat_id="5805918670"
+    mensage="entro en : " + precio
+    requests.post('https://api.telegram.org/bot'+ token +'/sendMessage',data={'chat_id': chat_id, 'text': mensage})
+
+  def Men_salio(self,precio):
+    
+    import requests
+    token="5956058224:AAGLqlpOiBwi0RcjfkoEXlV6Z-Ce0t4-tH8"
+    chat_id="5805918670"
+    mensage="Salio en : " + precio
+    requests.post('https://api.telegram.org/bot'+ token +'/sendMessage',data={'chat_id': chat_id, 'text': mensage})
