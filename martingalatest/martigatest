@@ -1,0 +1,26 @@
+from tkinter import *
+from tkinter import ttk
+
+
+def main():
+    raiz=Tk()
+    raiz.title("MARTINGALATEST") 
+    frame1=Frame()  # creamos el frame donde iran los witgets
+    frame1.pack(side='left',anchor='n')   # lo empaquetamos dentro de la raiz, lo empaquetamos a la izquierda y con el anchor arriba
+    frame1.config(width='350',height='550')
+    frame1.config(bd='2')   # ancho del borde
+    frame1.config(relief='groove')  # tipo de borde
+
+    label_precio=Label(frame1,text="Precio: ",font=('Helvatical ',14))
+    label_precio.grid(row=0,column=0,padx=10,pady=10)
+    label_precio.place(x=10,y=10)
+
+    cuadro_precio=ttk.Entry(frame1)
+    cuadro_precio.grid(row=0,column=1,padx=10,pady=10)
+
+
+
+    raiz.mainloop()
+
+if __name__ == "__main__":
+    main()
