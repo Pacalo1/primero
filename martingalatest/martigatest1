@@ -1,0 +1,100 @@
+from tkinter import *
+from tkinter import ttk
+
+#-----------------------------BOTONES----------------------------------------------------------------------------------------
+
+def pulsa_boton_100():
+    precio=int(cuadro_precio.get())
+    precio = precio + 100
+    cuadro_precio.delete(0, 8)   # borramos el texto desde la posicion 0 hasta la 8
+    cuadro_precio.insert(0,precio)
+
+def pulsa_boton_10():
+    precio=int(cuadro_precio.get())
+    precio = precio + 10
+    cuadro_precio.delete(0, 8)   # borramos el texto desde la posicion 0 hasta la 8
+    cuadro_precio.insert(0,precio)
+
+def pulsa_boton_1():
+    precio=int(cuadro_precio.get())
+    precio = precio + 1
+    cuadro_precio.delete(0, 8)   # borramos el texto desde la posicion 0 hasta la 8
+    cuadro_precio.insert(0,precio) 
+
+def pulsa_boton_100m():
+    precio=int(cuadro_precio.get())
+    precio = precio - 100
+    cuadro_precio.delete(0, 8)   # borramos el texto desde la posicion 0 hasta la 8
+    cuadro_precio.insert(0,precio)
+
+def pulsa_boton_10m():
+    precio=int(cuadro_precio.get())
+    precio = precio - 10
+    cuadro_precio.delete(0, 8)   # borramos el texto desde la posicion 0 hasta la 8
+    cuadro_precio.insert(0,precio)
+
+def pulsa_boton_1m():
+    precio=int(cuadro_precio.get())
+    precio = precio - 1
+    cuadro_precio.delete(0, 8)   # borramos el texto desde la posicion 0 hasta la 8
+    cuadro_precio.insert(0,precio) 
+#------------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------MAIN-------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------------------------
+
+def main():
+    global cuadro_precio
+    
+    raiz=Tk()
+    raiz.title("MARTINGALATEST") 
+    
+    
+    #*****************************frame del precio-------------------------
+    frame1=Frame()  # creamos el frame donde iran los witgets
+    frame1.pack(side='left',anchor='n')   # lo empaquetamos dentro de la raiz, lo empaquetamos a la izquierda y con el anchor arriba
+    frame1.config(width='350',height='550')
+    frame1.config(bd='2')   # ancho del borde
+    frame1.config(relief='groove')  # tipo de borde
+
+    label_precio=Label(frame1,text="Precio: ",font=('Helvatical ',14))
+    label_precio.grid(row=0,column=0,padx=10,pady=10)
+
+    
+
+    cuadro_precio=ttk.Entry(frame1,font=('Helvatical ',14))
+    cuadro_precio.grid(row=0,column=1,padx=10,pady=10)
+    cuadro_precio.insert(0,20000)
+
+    boton_100=ttk.Button(frame1,text="+ 100",command=pulsa_boton_100)
+   
+    boton_100.grid(row=1,column=0,padx=10,pady=5)
+
+    boton_10=ttk.Button(frame1,text="+ 10",command=pulsa_boton_10)
+    boton_10.grid(row=1,column=1,padx=10,pady=5)
+
+    boton_1=ttk.Button(frame1,text="+ 1",command=pulsa_boton_1)
+    boton_1.grid(row=1,column=3,padx=10,pady=5)
+
+    boton_100m=ttk.Button(frame1,text="+ 100",command=pulsa_boton_100m)
+    boton_100m.grid(row=2,column=0,padx=10,pady=5)
+
+    boton_10m=ttk.Button(frame1,text="+ 10",command=pulsa_boton_10m)
+    boton_10m.grid(row=2,column=1,padx=10,pady=5)
+
+    boton_1m=ttk.Button(frame1,text="+ 1",command=pulsa_boton_1m)
+    boton_1m.grid(row=2,column=3,padx=10,pady=5)
+    
+    #--------------------------Frame 2-----------------------------------------------------
+
+    frame2=Frame()  # creamos el frame donde iran los witgets
+    frame2.pack(side='left',anchor='n')   # lo empaquetamos dentro de la raiz, lo empaquetamos a la izquierda y con el anchor arriba
+    frame2.config(width='350',height='550')
+    frame2.config(bd='2')   # ancho del borde
+    frame2.config(relief='groove')  # tipo de borde
+
+
+
+    raiz.mainloop()
+
+if __name__ == "__main__":
+    main()
